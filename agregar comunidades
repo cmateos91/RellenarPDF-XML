@@ -1,0 +1,83 @@
+Para crear una nueva comunidad autónoma como Catalunya, sigue el mismo enfoque modular que hemos implementado para Andalucía. A continuación te muestro cómo hacerlo.
+
+Pasos:
+Crear la clase Catalunya.java que implementará la interfaz Comunidad y definirá su propio mapeo de campos PDF.
+Agregar la clase Catalunya a la fábrica ComunidadAutoFactory.java para que pueda ser seleccionada desde la interfaz gráfica.
+Implementación
+1. Catalunya.java (Nueva implementación para Catalunya)
+java
+Copiar código
+package charly.pdfautomation;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class Catalunya implements Comunidad {
+    @Override
+    public Map<String, String[]> getFieldMappings() {
+        Map<String, String[]> fieldMappings = new LinkedHashMap<>();
+        fieldMappings.put("Nom i Cognoms o Raó Social", new String[] { "CatalunyaField1", "catalunya_form1[0].field1" });
+        fieldMappings.put("NIF", new String[] { "CatalunyaField2", "catalunya_form1[0].field2" });
+        fieldMappings.put("Adreça", new String[] { "CatalunyaField3", "catalunya_form1[0].field3" });
+        fieldMappings.put("Codi Postal", new String[] { "CatalunyaField4", "catalunya_form1[0].field4" });
+        fieldMappings.put("Municipi", new String[] { "CatalunyaField5", "catalunya_form1[0].field5" });
+        fieldMappings.put("Provincia", new String[] { "CatalunyaField6", "catalunya_form1[0].field6" });
+        fieldMappings.put("Telèfon", new String[] { "CatalunyaField7", "catalunya_form1[0].field7" });
+        fieldMappings.put("Correu electrònic", new String[] { "CatalunyaField8", "catalunya_form1[0].field8" });
+        return fieldMappings;
+    }
+}
+En este ejemplo, los nombres de los campos de formulario PDF están mapeados a nombres más específicos para la comunidad de Catalunya.
+
+2. Modificar la fábrica ComunidadAutoFactory.java
+Ahora hay que agregar Catalunya a la clase de fábrica para que pueda ser seleccionada en la interfaz:
+
+java
+Copiar código
+package charly.pdfautomation;
+
+public class ComunidadAutoFactory {
+    public static Comunidad getComunidad(String nombre) {
+        switch (nombre.toLowerCase()) {
+            case "andalucia":
+                return new Andalucia();
+            case "catalunya":
+                return new Catalunya();
+            default:
+                throw new IllegalArgumentException("Comunidad no soportada: " + nombre);
+        }
+    }
+}
+Con esto, se agrega Catalunya a la fábrica, y ya puede seleccionarse desde la interfaz gráfica.
+
+3. Modificar el desplegable en App.java para incluir Catalunya
+Asegúrate de que el menú desplegable también incluya Catalunya:
+
+java
+Copiar código
+String[] comunidades = { "Andalucía", "Catalunya" }; // Ahora Catalunya está disponible
+Test de error común
+Si te encuentras con un error al agregar Catalunya, puede deberse a:
+
+Nombres de campos de PDF no encontrados: Si los nombres mapeados en Catalunya.java no coinciden con los nombres reales en el formulario PDF.
+
+Verifica que los nombres de los campos en los archivos PDF de Catalunya correspondan correctamente a los mapeos.
+Error en la fábrica: Si hay un typo o un nombre mal escrito en la selección de la comunidad autónoma.
+
+Por ejemplo:
+
+java
+Copiar código
+// Si en el comboBox seleccionas mal el nombre, verifica los nombres
+case "Catalunya": // Debe coincidir con "Catalunya" exactamente, incluido el uso de mayúsculas/minúsculas.
+Debug
+En caso de error, puedes agregar líneas de impresión para verificar:
+
+java
+Copiar código
+System.out.println("Comunidad seleccionada: " + seleccion);
+Y también en la clase de fábrica para asegurarte de que se está seleccionando correctamente:
+
+java
+Copiar código
+System.out.println("Cargando campos para la comunidad: " + nombre);

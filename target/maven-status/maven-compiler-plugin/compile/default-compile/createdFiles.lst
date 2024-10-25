@@ -1,0 +1,10 @@
+charly\pdfautomation\App.class
+charly\pdfautomation\model\Comunidad.class
+charly\pdfautomation\util\ComunidadAutoFactory.class
+camposPDF\RellenarMini.class
+charly\pdfautomation\gui\GUI.class
+camposPDF\leerCamposPDF.class
+charly\pdfautomation\gui\GUI$2.class
+charly\pdfautomation\model\Andalucia.class
+charly\pdfautomation\gui\GUI$1.class
+charly\pdfautomation\model\Valencia.class
