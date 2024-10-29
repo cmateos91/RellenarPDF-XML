@@ -35,6 +35,8 @@ import javax.swing.JTextField;
 import charly.pdfautomation.App;
 import charly.pdfautomation.model.Comunidad;
 import charly.pdfautomation.util.ComunidadAutoFactory;
+import charly.pdfautomation.util.PDFProcessor;
+import charly.pdfautomation.util.XMLProcessor;
 
 public class GUI {
 	private JFrame frame;
@@ -221,7 +223,9 @@ public class GUI {
 				int returnValue = fileChooser.showOpenDialog(frame);
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 					File selectedDirectory = fileChooser.getSelectedFile();
-					app.procesarPDFsEnDirectorio(selectedDirectory);
+					// Llama a procesarPDFsEnDirectorio con todos los argumentos requeridos
+					PDFProcessor.procesarPDFsEnDirectorio(selectedDirectory, fieldMappings, app.getData(),
+							app.getDestinoDirectory());
 					JOptionPane.showMessageDialog(frame, "Procesamiento completado. " + app.getFraseAleatoria());
 				}
 			} catch (Exception ex) {
@@ -244,7 +248,11 @@ public class GUI {
 				int returnValue = fileChooser.showOpenDialog(frame);
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 					File selectedXMLFile = fileChooser.getSelectedFile();
-					app.procesarXML(selectedXMLFile);
+					// Llamar al método procesarXML con los argumentos correctos
+					XMLProcessor.procesarXML(selectedXMLFile, app.getData(), // Mapa de datos
+							app.getComunidad().getFieldMappings(), // Mapa de mapeo de campos
+							app.getDestinoDirectory() // Directorio de destino
+					);
 					JOptionPane.showMessageDialog(frame,
 							"El archivo XML ha sido procesado correctamente." + app.getFraseAleatoria());
 				}
