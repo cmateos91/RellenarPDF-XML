@@ -35,7 +35,7 @@ public class Andalucia implements Comunidad {
 		fieldMappings.put("Razón social empresa instaladora",
 				new String[] { "cRazon_Social", "/form1/ANEXO/APARTADO_3/TextField1[1]" });
 		fieldMappings.put("CIF empresa instaladora", new String[] { "cCIF", "/form1/ANEXO/APARTADO_3/TextField1[2]" });
-		fieldMappings.put("Nº de Registro empresa instaladora", new String[] { "cNumRegistro" });
+		fieldMappings.put("Nº de Registro empresa instaladora", new String[] { "cnumRegistro" });
 		fieldMappings.put("Domicilio empresa instaladora", new String[] { "cDomicilioFiscal" });
 		fieldMappings.put("Código Postal empresa instaladora", new String[] { "cCP_2" });
 		fieldMappings.put("Localidad empresa instaladora", new String[] { "cLocalidad_2" });
@@ -89,8 +89,7 @@ public class Andalucia implements Comunidad {
 		fieldMappings.put("Especialidad TITULAR DEL CARNÉ", new String[] { "cTCEspecialidad" });
 
 		// Datos del día, lugar y año
-		fieldMappings.put("Ciudad -- SEVILLA -- ",
-				new String[] { "cCiudadHoy", "/form1/ANEXO/APARTADO_4/CUERPO/LUGAR" });
+		fieldMappings.put("Ciudad Actual", new String[] { "cCiudadHoy", "/form1/ANEXO/APARTADO_4/CUERPO/LUGAR" });
 		fieldMappings.put("Día", new String[] { "cDia", "/form1/ANEXO/APARTADO_4/CUERPO/DIA" });
 		fieldMappings.put("Mes", new String[] { "cMes" });
 		fieldMappings.put("Año", new String[] { "cAnio", "/form1/ANEXO/APARTADO_4/CUERPO/ORDEN_AÑO" });

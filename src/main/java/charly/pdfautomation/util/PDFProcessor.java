@@ -29,7 +29,6 @@ public class PDFProcessor {
 		try {
 			String src = archivoPDF.getAbsolutePath();
 			String tempFilePath = destinoDirectory.getAbsolutePath() + File.separator + archivoPDF.getName();
-
 			PdfDocument pdfDoc = new PdfDocument(new PdfReader(src), new PdfWriter(tempFilePath));
 			PdfAcroForm form = PdfAcroForm.getAcroForm(pdfDoc, true);
 
@@ -41,7 +40,20 @@ public class PDFProcessor {
 					for (String fieldName : possibleFieldNames) {
 						PdfFormField field = form.getField(fieldName);
 						if (field != null && !field.isReadOnly()) {
-							field.setValue(entry.getValue());
+							String existingValue = field.getValueAsString(); // Obtén el valor existente del campo
+							String newValue = entry.getValue(); // Valor proporcionado por el usuario
+
+							// Solo establece el nuevo valor si no está vacío
+							if (newValue != null && !newValue.isEmpty()) {
+								field.setValue(newValue);
+								field.regenerateField(); // Forzar la regeneración del campo
+								System.out.println(
+										"Campo encontrado: " + fieldName + " - Estableciendo valor: " + newValue);
+							} else {
+								// Si el nuevo valor está vacío, mantén el valor existente
+								System.out.println("Campo encontrado: " + fieldName
+										+ " - Valor existente no se modifica: " + existingValue);
+							}
 							fieldFound = true;
 							break;
 						}
@@ -54,10 +66,14 @@ public class PDFProcessor {
 				}
 			}
 
+			// Aplana el formulario para asegurar que los valores son visibles
+			// form.flattenFields();
+
 			pdfDoc.getWriter().flush();
 			pdfDoc.close();
 		} catch (IOException e) {
 			System.out.println("Error procesando el archivo " + archivoPDF.getName() + ": " + e.getMessage());
 		}
 	}
+
 }
